@@ -1,15 +1,16 @@
 /**
  * English Academy - Routing & Protocol System
  * Handles navigation, broken link redirection, and progress tracking.
+ * Updated: enable client-side link validation and robust URL resolution.
  */
 
 const Router = {
     // Configuration
     config: {
-        errorPage: 'Menud/error/Error404.html',
-        maintenancePage: 'Menud/error/maintenance.html',
-        noDisponiblePage: 'Menud/error/NoDisponible.html',
-        rootPath: '', // Will be calculated
+        errorPage: '/Menud/error/Error404.html',
+        maintenancePage: '/Menud/error/maintenance.html',
+        noDisponiblePage: '/Menud/error/NoDisponible.html',
+        rootPath: '', // kept for backwards compatibility
     },
 
     init() {
@@ -22,17 +23,31 @@ const Router = {
     calculateRootPath() {
         const path = window.location.pathname;
         const depth = (path.match(/\//g) || []).length;
-        // Adjust based on where index.html is. 
-        // Assuming index.html is at the root.
-        // This is a simple heuristic for static sites.
-        const upLevels = depth - 1; 
+        const upLevels = depth - 1;
         this.config.rootPath = '../'.repeat(Math.max(0, upLevels));
     },
 
     async checkPath(url) {
+        // Try HEAD first; fallback to GET. Use a timeout to avoid long hangs.
+        const timeoutMs = 3000;
         try {
-            const response = await fetch(url, { method: 'HEAD' });
-            return response.ok;
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), timeoutMs);
+
+            // Some servers don't allow HEAD; we'll try HEAD then GET if needed.
+            let response = await fetch(url, { method: 'HEAD', signal: controller.signal });
+            clearTimeout(id);
+            if (response && response.ok) return true;
+        } catch (e) {
+            // swallow and try GET fallback
+        }
+
+        try {
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), timeoutMs);
+            const response = await fetch(url, { method: 'GET', signal: controller.signal });
+            clearTimeout(id);
+            return response && response.ok;
         } catch (e) {
             return false;
         }
@@ -43,23 +58,39 @@ const Router = {
             const link = e.target.closest('a');
             if (!link) return;
 
+            // Allow modifier + click, non-primary buttons, and _blank targets to behave normally
+            if (link.target === '_blank' || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
+
             const href = link.getAttribute('href');
-            if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('javascript:')) {
-                return;
+            if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('javascript:')) {
+                return; // external or anchor or javascript — don't intercept
+            }
+
+            // In local file protocol, fetch will not work reliably. Let native navigation occur.
+            if (window.location.protocol === 'file:') {
+                return; // allow default navigation
             }
 
             // Internal link validation protocol
-            // Note: HEAD requests might not work everywhere locally (file://)
-            // but on a server they work.
-            /* 
             e.preventDefault();
-            const exists = await this.checkPath(href);
-            if (exists) {
-                window.location.href = href;
-            } else {
-                window.location.href = this.config.rootPath + this.config.errorPage;
+
+            // Resolve the href relative to current location to form an absolute URL
+            let resolvedUrl;
+            try {
+                resolvedUrl = new URL(href, window.location.href).href;
+            } catch (err) {
+                // If URL can't be resolved, redirect to configured 404
+                window.location.href = new URL(this.config.errorPage, window.location.origin).href;
+                return;
             }
-            */
+
+            const exists = await this.checkPath(resolvedUrl);
+            if (exists) {
+                window.location.href = resolvedUrl;
+            } else {
+                // Redirect to the absolute 404 page
+                window.location.href = new URL(this.config.errorPage, window.location.origin).href;
+            }
         });
     },
 
