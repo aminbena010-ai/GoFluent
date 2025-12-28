@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Past Continuous - Page 24</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
+        .hero-gradient { background: linear-gradient(135deg, #4338ca 0%, #6366f1 100%); }
+        .glass-card { background: white; border-radius: 2rem; border: 1px solid #e2e8f0; }
+        .blank-input { 
+            background-color: #fef08a; padding: 6px 12px; border-radius: 12px; 
+            font-weight: 700; border: 2px solid transparent; width: 250px;
+            outline: none; transition: all 0.2s ease; color: #1e293b; text-align: center;
+        }
+        .blank-input:focus { border-color: #6366f1; background-color: #ffffff; }
+        .input-correct { background-color: #dcfce7 !important; color: #15803d; border-color: #22c55e !important; }
+        .input-incorrect { background-color: #fee2e2 !important; color: #b91c1c; border-color: #ef4444 !important; }
+    </style>
+</head>
+<body class="pb-20">
+    <div class="fixed top-0 left-0 w-full h-1.5 bg-slate-200 z-50"><div id="p-bar" class="h-full bg-indigo-500 w-0 transition-all duration-500"></div></div>
+    <div class="hero-gradient px-8 py-6 text-white flex justify-between items-center shadow-lg">
+        <a href="menu.html" class="font-bold flex items-center space-x-2"><span>← Menu</span></a>
+        <div class="text-right"><p id="score" class="text-xl font-black">0 / 10</p><div class="bg-amber-600 px-3 py-0.5 rounded-full text-[10px] font-black uppercase text-white shadow-sm">Past Continuous</div></div>
+    </div>
+    <main class="max-w-4xl mx-auto px-4 mt-10">
+        <article class="glass-card p-6 md:p-10 shadow-xl">
+            <h1 class="text-3xl font-black text-center mb-10 text-slate-800 uppercase italic">Interrogative - Page 24</h1>
+            <div id="q-list" class="space-y-6"></div>
+            <div id="b-area" class="hidden mt-10 pt-8 border-t-2 border-dashed border-slate-100">
+                <p class="text-center font-black text-indigo-500 mb-6 tracking-widest">★ BONUS ★</p>
+                <div id="b-list" class="space-y-6"></div>
+            </div>
+            <div class="mt-12 flex flex-col items-center">
+                <button id="m-btn" onclick="check()" class="bg-indigo-600 text-white font-black py-4 px-12 rounded-2xl shadow-lg uppercase tracking-widest">Check Answers</button>
+                <button onclick="location.reload()" class="mt-4 text-slate-300 text-[10px] font-bold uppercase">New Mix</button>
+            </div>
+        </article>
+    </main>
+    <script>
+        const data = [{"text": "(was/were)", "answer": "Was she wearing", "end": "her red dress?"}, {"text": "(was/were)", "answer": "Were you dreaming", "end": "about me?"}, {"text": "(was/were)", "answer": "Was he fixing", "end": "the computer?"}, {"text": "(was/were)", "answer": "Were they swimming", "end": "in the ocean?"}, {"text": "(was/were)", "answer": "Was the sun shining", "end": "when you woke up?"}, {"text": "(was/were)", "answer": "Were we winning", "end": "the game at half-time?"}, {"text": "(was/were)", "answer": "Was I talking", "end": "too loud?"}, {"text": "(was/were)", "answer": "Were the students paying", "end": "attention?"}, {"text": "(was/were)", "answer": "Was it getting", "end": "cold outside?"}, {"text": "(was/were)", "answer": "Were you looking", "end": "for your keys?"}, {"text": "(was/were)", "answer": "Was she crying", "end": "because of the news?"}, {"text": "(was/were)", "answer": "Were they staying", "end": "at the Grand Hotel?"}, {"text": "(was/were)", "answer": "Was he driving", "end": "to work?"}, {"text": "(was/were)", "answer": "Were we making", "end": "too much noise?"}, {"text": "(was/were)", "answer": "Was the dog sleeping", "end": "on the sofa?"}, {"text": "(was/were)", "answer": "Were you listening", "end": "to the radio?"}, {"text": "(was/were)", "answer": "Was she calling", "end": "her mother?"}, {"text": "(was/were)", "answer": "Were they buying", "end": "a new car?"}, {"text": "(was/were)", "answer": "Was he eating", "end": "his lunch?"}, {"text": "(was/were)", "answer": "Were you waiting", "end": "for the train?"}, {"text": "(was/were)", "answer": "Was it snowing", "end": "in the city?"}, {"text": "(was/were)", "answer": "Were they playing", "end": "the piano?"}, {"text": "(was/were)", "answer": "Was she feeling", "end": "better?"}, {"text": "(was/were)", "answer": "Were you doing", "end": "your homework?"}, {"text": "(was/were)", "answer": "Was he using", "end": "the camera?"}, {"text": "(was/were)", "answer": "Were they building", "end": "a sandcastle?"}, {"text": "(was/were)", "answer": "Was the baby sleeping", "end": "?"}, {"text": "(was/were)", "answer": "Were we going", "end": "in the right direction?"}, {"text": "(was/were)", "answer": "Was it raining", "end": "during the match?"}, {"text": "(was/were)", "answer": "Were you wearing", "end": "a hat?"}, {"text": "(was/were)", "answer": "Was she drinking", "end": "tea?"}, {"text": "(was/were)", "answer": "Were they running", "end": "in the park?"}, {"text": "(was/were)", "answer": "Was he painting", "end": "the door?"}, {"text": "(was/were)", "answer": "Were you visiting", "end": "your aunt?"}, {"text": "(was/were)", "answer": "Was she cleaning", "end": "the house?"}, {"text": "(was/were)", "answer": "Were they watching", "end": "the stars?"}, {"text": "(was/were)", "answer": "Was he writing", "end": "a letter?"}, {"text": "(was/were)", "answer": "Were you expecting", "end": "a phone call?"}, {"text": "(was/were)", "answer": "Was it getting", "end": "dark?"}, {"text": "(was/were)", "answer": "Were the birds singing", "end": "?"}];
+        const shuf = (a) => a.sort(() => Math.random() - 0.5);
+        const sel = shuf([...data]);
+        const main = sel.slice(0, 10), bonus = sel.slice(10, 15);
+        function init() {
+            const l = document.getElementById('q-list');
+            main.forEach((q, idx) => {
+                const d = document.createElement('div');
+                d.className = "flex flex-wrap items-center gap-2 text-lg font-medium text-slate-700";
+                d.innerHTML = `<span class="text-indigo-200 font-black">${idx+1}.</span> <span>${q.text}</span> <input type="text" class="blank-input q-in" data-ans="${q.answer}"> <span>${q.end}</span>`;
+                l.appendChild(d);
+            });
+        }
+        function check() {
+            let s = 0; document.querySelectorAll('.q-in').forEach(i => {
+                if(i.value.trim().toLowerCase() === i.dataset.ans.toLowerCase()) { i.classList.add('input-correct'); s++; }
+                else i.classList.add('input-incorrect');
+            });
+            document.getElementById('score').innerText = s + " / 10";
+            document.getElementById('p-bar').style.width = (s*10) + "%";
+            if(s === 10) { document.getElementById('b-area').classList.remove('hidden'); loadB(); }
+        }
+        function loadB() {
+            const l = document.getElementById('b-list'); l.innerHTML = "";
+            bonus.forEach(q => {
+                const d = document.createElement('div');
+                d.className = "flex flex-wrap items-center gap-2 text-lg font-medium p-4 bg-indigo-50/50 rounded-xl";
+                d.innerHTML = `<span>★ ${q.text}</span> <input type="text" class="blank-input b-in" data-ans="${q.answer}"> <span>${q.end}</span>`;
+                l.appendChild(d);
+            });
+            document.getElementById('m-btn').innerText = "Verify Bonus";
+            document.getElementById('m-btn').onclick = () => {
+                document.querySelectorAll('.b-in').forEach(i => {
+                    if(i.value.trim().toLowerCase() === i.dataset.ans.toLowerCase()) i.classList.add('input-correct');
+                    else i.classList.add('input-incorrect');
+                });
+            };
+        }
+        init();
+    </script>
+</body>
+</html>

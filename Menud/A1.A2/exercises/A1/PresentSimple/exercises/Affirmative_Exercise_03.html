@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Present Simple: Expert Set - English Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f0f4f8; }
+        .hero-gradient { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); }
+        .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 2.5rem; border: 1px solid #e2e8f0; }
+        
+        .blank-input { 
+            background-color: #fef08a; 
+            padding: 4px 12px; 
+            border-radius: 12px; 
+            font-weight: 700; 
+            border: 2px solid transparent;
+            width: 160px;
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #1e293b;
+            text-align: center;
+        }
+        .blank-input:focus { border-color: #6366f1; background-color: #ffffff; box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); }
+        .input-correct { background-color: #dcfce7 !important; color: #15803d; border-color: #22c55e !important; transform: scale(1.02); }
+        .input-incorrect { background-color: #fee2e2 !important; color: #b91c1c; border-color: #ef4444 !important; }
+
+        #progress-bar { transition: width 0.5s ease-in-out; }
+    </style>
+</head>
+<body class="pb-20">
+
+    <div class="fixed top-0 left-0 w-full h-2 bg-gray-200 z-50">
+        <div id="progress-bar" class="h-full bg-indigo-600 w-0"></div>
+    </div>
+
+    <div class="hero-gradient px-8 py-6 text-white flex justify-between items-center shadow-2xl">
+        <a href="../menu.html" class="flex items-center space-x-3 group">
+            <div class="bg-white/20 p-2 rounded-lg group-hover:bg-white/40 transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </div>
+            <span class="font-bold tracking-tight">Back to Menu</span>
+        </a>
+        <div class="flex items-center space-x-4">
+            <div class="text-right">
+                <p class="text-[10px] uppercase opacity-70 font-black tracking-widest">Mastery</p>
+                <p id="score-text" class="text-lg font-bold">0 / 10</p>
+            </div>
+            <div class="bg-purple-400 text-purple-900 px-4 py-1 rounded-full text-xs font-black uppercase shadow-lg">Hard Mode</div>
+        </div>
+    </div>
+
+    <main class="max-w-4xl mx-auto px-6 mt-12">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tighter mb-4">Expert <span class="text-indigo-600">Level</span></h1>
+            <p class="text-slate-500 font-medium">Cuidado con las terminaciones especiales (<b>-ies, -es, -s</b>).</p>
+        </div>
+
+        <article class="glass-card p-8 md:p-12 mb-10 shadow-xl border-t-8 border-indigo-500">
+            <div id="questions-list" class="space-y-8"></div>
+
+            <div class="mt-12 flex flex-col items-center border-t border-slate-100 pt-10">
+                <button onclick="checkAnswers()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 px-14 rounded-2xl shadow-xl transition-all transform hover:-translate-y-1 active:scale-95 uppercase tracking-widest">
+                    Validate Solutions
+                </button>
+                <button onclick="location.reload()" class="mt-6 text-slate-400 hover:text-indigo-600 text-sm font-bold uppercase tracking-widest transition flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    Try Different Sentences
+                </button>
+            </div>
+        </article>
+
+        <div id="final-stats" class="hidden p-8 bg-indigo-600 rounded-3xl text-center shadow-2xl animate-bounce">
+            <h2 class="text-3xl font-black text-white">MASTER LEVEL REACHED! 🏆</h2>
+            <p class="text-indigo-100 font-bold uppercase tracking-widest text-sm mt-2">Your Present Simple is flawless!</p>
+        </div>
+    </main>
+
+    <script>
+        // BANCO DE 15 PREGUNTAS (NIVEL EXPERTO - POSITIVAS)
+        const masterQuestions = [
+            { text: "The scientist (study) ", answer: "studies", end: " rare plants in the jungle." },
+            { text: "My boss (finish) ", answer: "finishes", end: " his work very late." },
+            { text: "The moon (pass) ", answer: "passes", end: " through the earth's shadow." },
+            { text: "That pilot (fly) ", answer: "flies", end: " to Paris twice a week." },
+            { text: "The company (try) ", answer: "tries", end: " to improve every year." },
+            { text: "My little brother (copy) ", answer: "copies", end: " everything I do." },
+            { text: "The water (freeze) ", answer: "freezes", end: " at 0 degrees Celsius." },
+            { text: "She (brush) ", answer: "brushes", end: " her hair every morning." },
+            { text: "He (relax) ", answer: "relaxes", end: " on the sofa after work." },
+            { text: "The butterfly (buzz) ", answer: "buzzes", end: " around the flowers." },
+            { text: "Your friend (worry) ", answer: "worries", end: " about the exams too much." },
+            { text: "The chef (mix) ", answer: "mixes", end: " the ingredients for the sauce." },
+            { text: "The athlete (push) ", answer: "pushes", end: " his limits every training." },
+            { text: "The judge (decide) ", answer: "decides", end: " the final result." },
+            { text: "My neighbor (fix) ", answer: "fixes", end: " broken radios as a hobby." }
+        ];
+
+        function shuffle(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function initQuiz() {
+            const selected = shuffle([...masterQuestions]).slice(0, 10);
+            const container = document.getElementById('questions-list');
+            
+            selected.forEach((q, index) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = "flex flex-wrap items-center gap-3 text-lg font-semibold text-slate-700 p-4 rounded-2xl hover:bg-slate-50 transition";
+                qDiv.innerHTML = `
+                    <span class="bg-indigo-100 text-indigo-600 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black">${index + 1}</span>
+                    <span>${q.text}</span>
+                    <input type="text" class="blank-input" data-answer="${q.answer}" oninput="this.classList.remove('input-correct', 'input-incorrect')">
+                    <span>${q.end}</span>
+                `;
+                container.appendChild(qDiv);
+            });
+        }
+
+        function checkAnswers() {
+            const inputs = document.querySelectorAll('.blank-input');
+            let correctCount = 0;
+
+            inputs.forEach(input => {
+                const userVal = input.value.trim().toLowerCase();
+                const correctAnswer = input.getAttribute('data-answer').toLowerCase();
+
+                if (userVal === correctAnswer) {
+                    input.classList.add('input-correct');
+                    correctCount++;
+                } else {
+                    input.classList.add('input-incorrect');
+                }
+            });
+
+            const progress = (correctCount / 10) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+            document.getElementById('score-text').innerText = `${correctCount} / 10`;
+
+            if (correctCount === 10) {
+                document.getElementById('final-stats').classList.remove('hidden');
+            }
+        }
+
+        initQuiz();
+    </script>
+</body>
+</html>

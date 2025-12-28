@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Present Simple: Page 10 - Professor Level</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f3f4f6; }
+        .hero-gradient { background: linear-gradient(135deg, #450a0a 0%, #7f1d1d 100%); }
+        .option-btn {
+            transition: all 0.2s ease;
+            border: 2px solid #e2e8f0;
+        }
+        .option-btn:hover { border-color: #ef4444; background-color: #fef2f2; }
+        .correct { background-color: #22c55e !important; color: white !important; border-color: #16a34a !important; }
+        .incorrect { background-color: #ef4444 !important; color: white !important; border-color: #b91c1c !important; }
+    </style>
+</head>
+<body class="pb-20">
+
+    <div class="hero-gradient px-8 py-8 text-white flex justify-between items-center shadow-lg border-b-4 border-yellow-500">
+        <a href="../menu.html" class="flex items-center space-x-2 hover:text-red-200 transition">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 8.991 8.991 0 01-18 0z"></path></svg>
+            <span class="font-bold">Volver</span>
+        </a>
+        <div class="text-center">
+            <h1 class="text-3xl font-black tracking-tighter uppercase italic underline decoration-yellow-400">PÁGINA 10</h1>
+            <p class="text-xs uppercase tracking-widest text-red-200 font-bold">The Final Boss - Mastery Exam</p>
+        </div>
+        <div class="bg-red-900/50 px-4 py-1 rounded-lg font-mono border border-red-400">
+            FINAL SCORE: <span id="score">0</span> / 10
+        </div>
+    </div>
+
+    <main class="max-w-3xl mx-auto mt-10 px-4">
+        
+        <div id="main-quiz" class="space-y-6">
+            </div>
+
+        <div id="bonus-section" class="mt-12 hidden border-t-8 border-double border-red-500 pt-10">
+            <div class="bg-red-100 p-6 rounded-3xl mb-8 text-center border-2 border-red-300">
+                <h2 class="text-3xl font-black text-red-700 italic">⚠️ THE HIDDEN BOSS ⚠️</h2>
+                <p class="text-red-600 font-bold uppercase text-sm tracking-tighter">Solo para verdaderos expertos en gramática</p>
+            </div>
+            <div id="bonus-quiz" class="space-y-6">
+                </div>
+        </div>
+
+        <div class="mt-12 text-center">
+            <button onclick="checkCompletion()" id="unlock-btn" class="bg-red-600 text-white px-12 py-6 rounded-full font-black hover:bg-red-700 transition shadow-2xl uppercase tracking-tighter text-xl">
+                ¿ERES UN MAESTRO? COMPROBAR
+            </button>
+        </div>
+    </main>
+
+    <script>
+        const questions = [
+            { q: "The furniture in the room _______ very expensive.", options: ["look", "looks", "lookes"], ans: "looks" },
+            { q: "A number of students _______ to join the club.", options: ["want", "wants", "wanties"], ans: "want" },
+            { q: "The staff _______ a long meeting every Friday.", options: ["has", "have", "haves"], ans: "has" },
+            { q: "None of the money _______ been found yet.", options: ["has", "have", "haves"], ans: "has" },
+            { q: "The criteria for the job _______ very strict.", options: ["is", "are", "be"], ans: "are" },
+            { q: "Economic theory _______ many complex variables.", options: ["encompass", "encompasses", "encompaas"], ans: "encompasses" },
+            { q: "The company _______ all its competitors.", options: ["outdo", "outdoes", "outdos"], ans: "outdoes" },
+            { q: "This species of butterfly _______ only in Africa.", options: ["live", "lives", "livies"], ans: "lives" },
+            { q: "Your baggage _______ too much for the flight.", options: ["weigh", "weighs", "weighes"], ans: "weighs" },
+            { q: "Neither of the witnesses _______ the accident.", options: ["recall", "recalls", "recalies"], ans: "recalls" }
+        ];
+
+        const bonusQuestions = [
+            { q: "A pack of wolves _______ through the forest.", options: ["hunt", "hunts", "hunty"], ans: "hunts" },
+            { q: "Acoustics _______ the quality of a concert hall.", options: ["determine", "determines", "determins"], ans: "determines" },
+            { q: "The scissors _______ not sharp enough to cut.", options: ["is", "are", "be"], ans: "are" },
+            { q: "Each and every person _______ to pay taxes.", options: ["need", "needs", "needes"], ans: "needs" },
+            { q: "Success _______ upon hard work and focus.", options: ["rely", "relies", "relys"], ans: "relies" }
+        ];
+
+        let score = 0;
+
+        function createQuiz(data, containerId) {
+            const container = document.getElementById(containerId);
+            data.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-3xl shadow-lg border-2 border-transparent hover:border-red-400 transition-all";
+                card.innerHTML = `
+                    <p class="text-lg font-black text-gray-800 mb-4 tracking-tight"><span class="text-red-600">QUIZ:</span> ${item.q}</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        ${item.options.map(opt => `
+                            <button onclick="verify(this, '${opt}', '${item.ans}')" class="option-btn py-4 px-4 rounded-2xl font-black text-gray-500 bg-gray-50">
+                                ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function verify(btn, selected, correct) {
+            const parent = btn.parentElement;
+            const buttons = parent.querySelectorAll('button');
+            buttons.forEach(b => b.disabled = true);
+
+            if (selected === correct) {
+                btn.classList.add('correct');
+                if(parent.parentElement.parentElement.id !== 'bonus-section') {
+                    score++;
+                    document.getElementById('score').innerText = score;
+                }
+            } else {
+                btn.classList.add('incorrect');
+                buttons.forEach(b => {
+                    if(b.innerText.trim() === correct) b.classList.add('correct');
+                });
+            }
+        }
+
+        function checkCompletion() {
+            if (score === 10) {
+                document.getElementById('bonus-section').classList.remove('hidden');
+                document.getElementById('unlock-btn').innerText = "CERTIFICADO DE MAESTRO";
+                document.getElementById('unlock-btn').classList.replace('bg-red-600', 'bg-black');
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            } else {
+                alert("¡ERROR! Para acceder al nivel final debes tener los 10 aciertos (Puntuación perfecta).");
+            }
+        }
+
+        createQuiz(questions, 'main-quiz');
+        createQuiz(bonusQuestions, 'bonus-quiz');
+    </script>
+</body>
+</html>

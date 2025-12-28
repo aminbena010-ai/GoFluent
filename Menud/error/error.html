@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error - English Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f0f4f8; display: flex; flex-direction: column; min-height: 100vh; }
+        .hero-gradient { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); }
+        .glass-card { 
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px); 
+            border-radius: 2.5rem; 
+            border: 1px solid #e2e8f0; 
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+        .error-border { border-top: 8px solid #ef4444; } /* Borde superior rojo para el error */
+
+        /* Animación de sacudida para el icono de error */
+        .shake-animation {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center p-6">
+
+    <div class="hero-gradient px-8 py-6 text-white flex justify-between items-center shadow-2xl w-full fixed top-0 left-0">
+        <a href="menu.html" class="flex items-center space-x-3 group">
+            <div class="bg-white/20 p-2 rounded-lg group-hover:bg-white/40 transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </div>
+            <span class="font-bold tracking-tight">Back to Menu</span>
+        </a>
+        <div class="flex items-center space-x-4">
+            <span class="text-sm font-bold tracking-widest uppercase">English Academy</span>
+        </div>
+    </div>
+
+    <main class="flex-grow flex items-center justify-center w-full max-w-lg mt-24">
+        <article class="glass-card error-border p-8 md:p-12 text-center">
+            <div class="w-24 h-24 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-8 shake-animation">
+                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                </svg>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tighter mb-4">
+                Oops! <span class="text-red-600">Error</span>
+            </h1>
+            <p class="text-slate-500 font-medium text-lg mb-8">
+                Lo sentimos, parece que ha ocurrido un problema inesperado.
+                <br>Por favor, inténtalo de nuevo o vuelve al menú principal.
+            </p>
+            <a href="menu.html" class="inline-flex items-center bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 px-8 rounded-2xl shadow-xl transition-all transform hover:-translate-y-1 active:scale-95 uppercase tracking-widest text-lg">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Go to Menu
+            </a>
+        </article>
+    </main>
+
+    <footer class="w-full text-center py-6 text-slate-400 text-sm mt-auto">
+        &copy; 2023 English Academy. All rights reserved.
+    </footer>
+
+</body>
+</html>

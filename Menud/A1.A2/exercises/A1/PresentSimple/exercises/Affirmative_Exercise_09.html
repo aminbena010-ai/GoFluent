@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Present Simple: Page 9 - Extreme Level</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f3f4f6; }
+        .hero-gradient { background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); }
+        .option-btn {
+            transition: all 0.2s ease;
+            border: 2px solid #e2e8f0;
+        }
+        .option-btn:hover { border-color: #6366f1; background-color: #f8fafc; }
+        .correct { background-color: #22c55e !important; color: white !important; border-color: #16a34a !important; }
+        .incorrect { background-color: #ef4444 !important; color: white !important; border-color: #b91c1c !important; }
+        .locked { opacity: 0.5; filter: blur(4px); pointer-events: none; }
+    </style>
+</head>
+<body class="pb-20">
+
+    <div class="hero-gradient px-8 py-8 text-white flex justify-between items-center shadow-lg">
+        <a href="../menu.html" class="flex items-center space-x-2 hover:text-indigo-300 transition">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 8.991 8.991 0 01-18 0z"></path></svg>
+            <span class="font-bold">Volver</span>
+        </a>
+        <div class="text-center">
+            <h1 class="text-3xl font-black tracking-tighter uppercase">PÁGINA 9</h1>
+            <p class="text-xs uppercase tracking-widest text-indigo-300 font-bold">Advanced Subjects & Verbs</p>
+        </div>
+        <div class="bg-indigo-500 px-4 py-1 rounded-lg font-bold">
+            Score: <span id="score">0</span> / 10
+        </div>
+    </div>
+
+    <main class="max-w-3xl mx-auto mt-10 px-4">
+        
+        <div id="main-quiz" class="space-y-6">
+            </div>
+
+        <div id="bonus-section" class="mt-12 hidden border-t-4 border-dashed border-red-300 pt-10">
+            <div class="text-center mb-8">
+                <span class="bg-red-600 text-white px-4 py-1 rounded-full font-black text-sm uppercase animate-pulse">¡Nivel Experto Desbloqueado!</span>
+                <h2 class="text-2xl font-bold mt-2 text-slate-800">Mastery Bonus Challenges</h2>
+            </div>
+            <div id="bonus-quiz" class="space-y-6">
+                </div>
+        </div>
+
+        <div class="mt-12 text-center">
+            <button onclick="checkCompletion()" id="unlock-btn" class="bg-slate-900 text-white px-10 py-5 rounded-2xl font-black hover:bg-indigo-700 transition shadow-xl uppercase tracking-widest">
+                Comprobar Maestría
+            </button>
+        </div>
+    </main>
+
+    <script>
+        const questions = [
+            { q: "Each of the candidates _______ a speech tonight.", options: ["gives", "give", "givees"], ans: "gives" },
+            { q: "This new information _______ everything we knew.", options: ["change", "changes", "changies"], ans: "changes" },
+            { q: "Mathematics _______ a difficult subject for many.", options: ["seem", "seems", "seemies"], ans: "seems" },
+            { q: "Neither of my brothers _______ how to drive.", options: ["know", "knows", "knowies"], ans: "knows" },
+            { q: "The news _______ broadcasted at 8:00 PM.", options: ["is", "are", "be"], ans: "is" },
+            { q: "Physics _______ the laws of the universe.", options: ["study", "studys", "studies"], ans: "studies" },
+            { q: "Someone _______ at the door right now.", options: ["knock", "knocks", "knockes"], ans: "knocks" },
+            { q: "The athlete _______ every obstacle in his path.", options: ["pass", "passs", "passes"], ans: "passes" },
+            { q: "Gravity _______ objects toward the center.", options: ["pull", "pulls", "pullies"], ans: "pulls" },
+            { q: "The government _______ new environmental laws.", options: ["enforce", "enforces", "enforceies"], ans: "enforces" }
+        ];
+
+        const bonusQuestions = [
+            { q: "Everybody _______ to be happy in life.", options: ["want", "wants", "wantes"], ans: "wants" },
+            { q: "Her advice _______ me feel much better.", options: ["make", "makes", "makies"], ans: "makes" },
+            { q: "A good detective _______ every small detail.", options: ["notice", "notices", "noticies"], ans: "notices" },
+            { q: "The judge _______ the final decision today.", options: ["reach", "reachs", "reaches"], ans: "reaches" },
+            { q: "Everything in this store _______ half price.", options: ["cost", "costs", "costes"], ans: "costs" }
+        ];
+
+        let score = 0;
+
+        function createQuiz(data, containerId) {
+            const container = document.getElementById(containerId);
+            data.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-3xl shadow-sm border border-gray-100 transition-all hover:shadow-md";
+                card.innerHTML = `
+                    <p class="text-lg font-bold text-slate-800 mb-4">${containerId === 'bonus-quiz' ? 'Bonus' : index + 1}. ${item.q}</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        ${item.options.map(opt => `
+                            <button onclick="verify(this, '${opt}', '${item.ans}')" class="option-btn py-3 px-4 rounded-xl font-bold text-slate-500">
+                                ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function verify(btn, selected, correct) {
+            const parent = btn.parentElement;
+            const buttons = parent.querySelectorAll('button');
+            
+            buttons.forEach(b => b.disabled = true);
+
+            if (selected === correct) {
+                btn.classList.add('correct');
+                // Solo sumamos puntos para los 10 primeros
+                if(parent.parentElement.parentElement.id !== 'bonus-section') {
+                    score++;
+                    document.getElementById('score').innerText = score;
+                }
+            } else {
+                btn.classList.add('incorrect');
+                buttons.forEach(b => {
+                    if(b.innerText.trim() === correct) b.classList.add('correct');
+                });
+            }
+        }
+
+        function checkCompletion() {
+            if (score === 10) {
+                document.getElementById('bonus-section').classList.remove('hidden');
+                document.getElementById('unlock-btn').innerText = "MAESTRÍA COMPLETADA";
+                document.getElementById('unlock-btn').classList.replace('bg-slate-900', 'bg-green-600');
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            } else {
+                alert("¡Necesitas una puntuación perfecta (10/10) para desbloquear el nivel Experto!");
+            }
+        }
+
+        createQuiz(questions, 'main-quiz');
+        createQuiz(bonusQuestions, 'bonus-quiz');
+    </script>
+</body>
+</html>

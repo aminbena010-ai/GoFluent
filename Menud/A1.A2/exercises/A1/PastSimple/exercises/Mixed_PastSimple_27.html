@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Simple Mixed - Page 27</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f1f5f9; }
+        .hero-gradient { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); }
+        .glass-card { background: white; border-radius: 2.5rem; border: 1px solid #e2e8f0; }
+        .blank-input { 
+            background-color: #fef08a; padding: 6px 12px; border-radius: 12px; 
+            font-weight: 700; border: 2px solid transparent; width: 170px;
+            outline: none; transition: all 0.3s ease; color: #1e293b; text-align: center;
+        }
+        .blank-input:focus { border-color: #6366f1; background-color: #ffffff; box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); }
+        .input-correct { background-color: #dcfce7 !important; color: #15803d; border-color: #22c55e !important; }
+        .input-incorrect { background-color: #fee2e2 !important; color: #b91c1c; border-color: #ef4444 !important; }
+    </style>
+</head>
+<body class="pb-20">
+    <div class="fixed top-0 left-0 w-full h-2 bg-slate-200 z-50">
+        <div id="progress-bar" class="h-full bg-indigo-500 w-0 transition-all duration-500"></div>
+    </div>
+
+    <div class="hero-gradient px-8 py-6 text-white flex justify-between items-center shadow-xl">
+        <a href="menu.html" class="flex items-center space-x-3 group">
+            <div class="bg-white/10 p-2 rounded-lg group-hover:bg-white/20 transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </div>
+            <span class="font-bold tracking-tight">Back to Menu</span>
+        </a>
+        <div class="text-right">
+            <p id="score-text" class="text-lg font-bold">0 / 10</p>
+            <div class="bg-orange-500 px-3 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest text-white">Page 27</div>
+        </div>
+    </div>
+
+    <main class="max-w-4xl mx-auto px-6 mt-12">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-black text-slate-900 mb-2">MIXED</h1>
+            <p class="text-slate-400 font-bold uppercase tracking-widest text-xs italic">Past Simple Exercises</p>
+        </div>
+
+        <article class="glass-card p-8 md:p-12 shadow-xl border-t-8 border-slate-800">
+            <div id="questions-list" class="space-y-8"></div>
+            
+            <div id="bonus-area" class="hidden mt-10 pt-10 border-t-4 border-dashed border-slate-100">
+                <p class="text-center font-black text-indigo-500 mb-6 uppercase tracking-widest italic">★ Bonus Challenge ★</p>
+                <div id="bonus-list" class="space-y-8"></div>
+            </div>
+
+            <div class="mt-12 flex flex-col items-center border-t pt-10">
+                <button id="main-btn" onclick="checkAnswers()" class="bg-slate-800 hover:bg-black text-white font-black py-4 px-12 rounded-2xl shadow-lg transition-all active:scale-95 uppercase tracking-widest">
+                    Check Answers
+                </button>
+                <button onclick="location.reload()" class="mt-6 text-slate-400 hover:text-slate-600 text-[10px] font-bold uppercase tracking-tighter">Refresh for new phrases</button>
+            </div>
+        </article>
+    </main>
+
+    <script>
+        const allData = [{"text": "Yesterday, I (visit)", "answer": "visited", "end": "my grandparents."}, {"text": "She (buy)", "answer": "bought", "end": "a new car last week."}, {"text": "They (play)", "answer": "played", "end": "tennis for two hours."}, {"text": "We (go)", "answer": "went", "end": "to the beach in 2019."}, {"text": "He (see)", "answer": "saw", "end": "a ghost in the hallway."}, {"text": "The cat (sleep)", "answer": "slept", "end": "all day long."}, {"text": "You (finish)", "answer": "finished", "end": "the report on time."}, {"text": "It (rain)", "answer": "rained", "end": "yesterday morning."}, {"text": "My friends (invite)", "answer": "invited", "end": "me to the party."}, {"text": "The teacher (speak)", "answer": "spoke", "end": "about the exam."}, {"text": "I (find)", "answer": "found", "end": "my lost keys under the sofa."}, {"text": "She (write)", "answer": "wrote", "end": "a beautiful poem yesterday."}, {"text": "They (drink)", "answer": "drank", "end": "all the orange juice."}, {"text": "We (study)", "answer": "studied", "end": "for the math test."}, {"text": "He (break)", "answer": "broke", "end": "his leg during the game."}, {"text": "The bird (fly)", "answer": "flew", "end": "away very fast."}, {"text": "You (make)", "answer": "made", "end": "a delicious dinner."}, {"text": "It (happen)", "answer": "happened", "end": "many years ago."}, {"text": "My brother (bring)", "answer": "brought", "end": "some snacks."}, {"text": "The students (listen)", "answer": "listened", "end": "to the music."}, {"text": "I (gave)", "answer": "gave", "end": "her a present for her birthday."}, {"text": "She (think)", "answer": "thought", "end": "about the problem."}, {"text": "They (run)", "answer": "ran", "end": "five kilometers this morning."}, {"text": "We (ate)", "answer": "ate", "end": "pizza for lunch yesterday."}, {"text": "He (told)", "answer": "told", "end": "me a very funny story."}, {"text": "The car (stop)", "answer": "stopped", "end": "at the red light."}, {"text": "You (knew)", "answer": "knew", "end": "all the answers."}, {"text": "It (cost)", "answer": "cost", "end": "a lot of money back then."}, {"text": "My mother (cleaned)", "answer": "cleaned", "end": "the whole house."}, {"text": "The child (drew)", "answer": "drew", "end": "a picture of a house."}, {"text": "I (not/study)", "answer": "didn't study", "end": "last night."}, {"text": "She (not/eat)", "answer": "didn't eat", "end": "her breakfast."}, {"text": "They (not/like)", "answer": "didn't like", "end": "the movie."}, {"text": "We (not/have)", "answer": "didn't have", "end": "enough money."}, {"text": "He (not/watch)", "answer": "didn't watch", "end": "TV yesterday."}, {"text": "The baby (not/cry)", "answer": "didn't cry", "end": "last night."}, {"text": "You (not/call)", "answer": "didn't call", "end": "me back."}, {"text": "It (not/work)", "answer": "didn't work", "end": "properly."}, {"text": "My parents (not/travel)", "answer": "didn't travel", "end": "in June."}, {"text": "The dog (not/bark)", "answer": "didn't bark", "end": "at the postman."}, {"text": "I (not/see)", "answer": "didn't see", "end": "you at the park."}, {"text": "She (not/go)", "answer": "didn't go", "end": "to the gym today."}, {"text": "They (not/bring)", "answer": "didn't bring", "end": "their books."}, {"text": "We (not/know)", "answer": "didn't know", "end": "about the meeting."}, {"text": "He (not/understand)", "answer": "didn't understand", "end": "the lesson."}, {"text": "The shop (not/open)", "answer": "didn't open", "end": "on Sunday."}, {"text": "You (not/buy)", "answer": "didn't buy", "end": "any milk."}, {"text": "It (not/snow)", "answer": "didn't snow", "end": "last winter."}, {"text": "My sister (not/clean)", "answer": "didn't clean", "end": "her room."}, {"text": "The bus (not/arrive)", "answer": "didn't arrive", "end": "on time."}, {"text": "I (not/feel)", "answer": "didn't feel", "end": "very well."}, {"text": "She (not/speak)", "answer": "didn't speak", "end": "to me."}, {"text": "They (not/win)", "answer": "didn't win", "end": "the match."}, {"text": "We (not/stay)", "answer": "didn't stay", "end": "at a hotel."}, {"text": "He (not/finish)", "answer": "didn't finish", "end": "his homework."}, {"text": "The computer (not/turn on)", "answer": "didn't turn on", "end": "today."}, {"text": "You (not/take)", "answer": "didn't take", "end": "the umbrella."}, {"text": "I (not/read)", "answer": "didn't read", "end": "that book yet."}, {"text": "She (not/send)", "answer": "didn't send", "end": "the email."}, {"text": "They (not/believe)", "answer": "didn't believe", "end": "the story."}, {"text": "(Did)", "answer": "Did", "end": "you see the lunar eclipse?"}, {"text": "(Did)", "answer": "Did", "end": "she arrive at 8 o'clock?"}, {"text": "(Did)", "answer": "Did", "end": "they enjoy the concert?"}, {"text": "(Did)", "answer": "Did", "end": "he fix the broken window?"}, {"text": "(Did)", "answer": "Did", "end": "we win the championship?"}, {"text": "(Did)", "answer": "Did", "end": "the store open yesterday?"}, {"text": "(Did)", "answer": "Did", "end": "you lose your wallet?"}, {"text": "(Did)", "answer": "Did", "end": "it happen last Monday?"}, {"text": "(Did)", "answer": "Did", "end": "they buy the tickets?"}, {"text": "(Did)", "answer": "Did", "end": "she find her lost ring?"}, {"text": "(Did)", "answer": "Did", "end": "you sleep well last night?"}, {"text": "(Did)", "answer": "Did", "end": "he call you yesterday?"}, {"text": "(Did)", "answer": "Did", "end": "they go to the cinema?"}, {"text": "(Did)", "answer": "Did", "end": "she eat all the cake?"}, {"text": "(Did)", "answer": "Did", "end": "we meet before?"}, {"text": "(Did)", "answer": "Did", "end": "the teacher explain the rule?"}, {"text": "(Did)", "answer": "Did", "end": "you hear that noise?"}, {"text": "(Did)", "answer": "Did", "end": "he bring the documents?"}, {"text": "(Did)", "answer": "Did", "end": "they pay the bill?"}, {"text": "(Did)", "answer": "Did", "end": "it rain during the night?"}, {"text": "(Did)", "answer": "Did", "end": "she wear her new dress?"}, {"text": "(Did)", "answer": "Did", "end": "you feel happy there?"}, {"text": "(Did)", "answer": "Did", "end": "he tell the truth?"}, {"text": "(Did)", "answer": "Did", "end": "they build this house?"}, {"text": "(Did)", "answer": "Did", "end": "we finish everything?"}, {"text": "(Did)", "answer": "Did", "end": "she see the doctor?"}, {"text": "(Did)", "answer": "Did", "end": "you like the food?"}, {"text": "(Did)", "answer": "Did", "end": "he drive to the city?"}, {"text": "(Did)", "answer": "Did", "end": "they play well?"}, {"text": "(Did)", "answer": "Did", "end": "it cost much?"}];
+
+        function shuffle(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        // Lógica de intercambio: Elegimos 10 principales y 5 bonus de la reserva
+        const selection = shuffle([...allData]);
+        const main = selection.slice(0, 10);
+        const bonus = selection.slice(10, 15);
+
+        function init() {
+            const list = document.getElementById('questions-list');
+            main.forEach((q, idx) => {
+                const div = document.createElement('div');
+                div.className = "flex flex-wrap items-center gap-3 text-lg font-medium text-slate-700";
+                div.innerHTML = `<span class="text-slate-300 font-black">${idx+1}.</span> 
+                                 <span>${q.text}</span> 
+                                 <input type="text" class="blank-input q-in" data-ans="${q.answer}"> 
+                                 <span>${q.end}</span>`;
+                list.appendChild(div);
+            });
+        }
+
+        function checkAnswers() {
+            const ins = document.querySelectorAll('.q-in');
+            let score = 0;
+            ins.forEach(i => {
+                if(i.value.trim().toLowerCase() === i.dataset.ans.toLowerCase()) {
+                    i.classList.add('input-correct'); score++;
+                } else i.classList.add('input-incorrect');
+            });
+            
+            document.getElementById('score-text').innerText = score + " / 10";
+            document.getElementById('progress-bar').style.width = (score*10) + "%";
+            
+            if(score === 10) {
+                document.getElementById('bonus-area').classList.remove('hidden');
+                loadBonus();
+                document.getElementById('main-btn').innerText = "Verify Bonus";
+                document.getElementById('main-btn').onclick = checkBonus;
+            }
+        }
+
+        function loadBonus() {
+            const list = document.getElementById('bonus-list');
+            list.innerHTML = "";
+            bonus.forEach(q => {
+                const div = document.createElement('div');
+                div.className = "flex flex-wrap items-center gap-3 text-lg font-medium text-slate-800 p-4 bg-slate-50 rounded-2xl";
+                div.innerHTML = `<span>★ ${q.text}</span> <input type="text" class="blank-input b-in" data-ans="${q.answer}"> <span>${q.end}</span>`;
+                list.appendChild(div);
+            });
+        }
+
+        function checkBonus() {
+            const bins = document.querySelectorAll('.b-in');
+            let bScore = 0;
+            bins.forEach(i => {
+                if(i.value.trim().toLowerCase() === i.dataset.ans.toLowerCase()) {
+                    i.classList.add('input-correct'); bScore++;
+                } else i.classList.add('input-incorrect');
+            });
+            if(bScore === 5) alert("PERFECT SCORE!");
+        }
+
+        init();
+    </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading: David's Routine - English Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fc; }
+        .hero-gradient { background: linear-gradient(135deg, #2b3a8c 0%, #7d44ec 100%); }
+        .content-card { background-color: white; border-radius: 1.5rem; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05); }
+        mark { background-color: #fef08a; padding: 0 4px; border-radius: 4px; font-weight: 600; }
+        
+        /* Estados de respuesta */
+        .option-card { cursor: pointer; transition: all 0.2s; border: 1px solid #f1f5f9; }
+        .option-card:hover { border-color: #7d44ec; background-color: #f5f3ff; }
+        .correct { background-color: #dcfce7 !important; border-color: #22c55e !important; color: #166534; }
+        .incorrect { background-color: #fee2e2 !important; border-color: #ef4444 !important; color: #991b1b; }
+    </style>
+</head>
+<body class="pb-20">
+
+    <div class="hero-gradient px-6 py-4 text-white flex justify-between items-center shadow-lg">
+        <a href="../reading_menu_a1.html" class="flex items-center space-x-2 hover:opacity-80 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            <span class="font-medium">Back to Reading Menu</span>
+        </a>
+        <div class="text-xs font-semibold bg-white/20 px-3 py-1 rounded-full uppercase">Level A1 - Reading</div>
+    </div>
+
+    <main class="max-w-4xl mx-auto px-6 mt-10">
+        <h1 class="text-4xl font-extrabold text-gray-800 mb-8 text-center">David's Daily Routine</h1>
+
+        <article class="content-card p-8 md:p-12 mb-10 leading-relaxed text-gray-700 text-lg">
+            <h3 class="text-xl font-bold text-blue-800 mb-4 border-b pb-2">Part 1: The Morning</h3>
+            <p class="mb-6">
+                My name is David and my daily routine is very organized. I always <mark>wake up</mark> at 6:45 AM, but I stay in bed for ten minutes. At 6:55 AM, I <mark>get up</mark> and go to the bathroom. I wash my face and brush my teeth. Then, I <mark>get dressed</mark>. I usually wear jeans and a comfortable T-shirt. 
+                At 7:15 AM, I prepare my breakfast in the kitchen. I eat cereal with milk and I drink a large glass of orange juice. My cat, Luna, sits near me because she wants her food too. After breakfast, I take my backpack and <mark>walk</mark> to the bus stop.
+            </p>
+
+            <h3 class="text-xl font-bold text-blue-800 mb-4 border-b pb-2">Part 2: School and Work</h3>
+            <p class="mb-6">
+                I <mark>arrive</mark> at my office at 8:30 AM. My job is interesting but sometimes it is difficult. I work on my computer and I answer many emails. My boss comes to my desk at 10:00 AM and we talk about new projects.
+                At 1:00 PM, I <mark>have lunch</mark> with my coworkers. We go to a small Italian restaurant across the street. We eat pasta and talk about our families. It is a very relaxing time. I return to work at 2:00 PM and I <mark>finish</mark> at 5:00 PM.
+            </p>
+
+            <h3 class="text-xl font-bold text-blue-800 mb-4 border-b pb-2">Part 3: The Evening</h3>
+            <p>
+                When I get home, I am usually tired. First, I sit on the sofa and read the news on my phone. Then, I <mark>cook dinner</mark>. I like to cook healthy food, like fish and salad. After dinner, I wash the dishes. 
+                In the evening, I <mark>exercise</mark> for thirty minutes or I watch a series on TV. My sister sometimes calls me and we talk for a long time. Finally, I <mark>go to bed</mark> at 11:00 PM. I sleep for seven or eight hours every night.
+            </p>
+        </article>
+
+        <section class="content-card p-8 md:p-10 border-t-8 border-purple-500">
+            <h2 class="text-2xl font-bold text-gray-800 mb-8">Reading Comprehension Quiz</h2>
+            
+            <div class="space-y-8">
+                <div class="question-block">
+                    <p class="font-semibold text-gray-800 mb-4">1. What time does David actually get out of bed?</p>
+                    <div class="grid gap-3">
+                        <div onclick="checkAnswer(this, false)" class="option-card p-4 rounded-xl">6:45 AM</div>
+                        <div onclick="checkAnswer(this, true)" class="option-card p-4 rounded-xl">6:55 AM</div>
+                        <div onclick="checkAnswer(this, false)" class="option-card p-4 rounded-xl">7:15 AM</div>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <p class="font-semibold text-gray-800 mb-4">2. Who is Luna?</p>
+                    <div class="grid gap-3">
+                        <div onclick="checkAnswer(this, false)" class="option-card p-4 rounded-xl">David's sister</div>
+                        <div onclick="checkAnswer(this, true)" class="option-card p-4 rounded-xl">David's cat</div>
+                        <div onclick="checkAnswer(this, false)" class="option-card p-4 rounded-xl">David's boss</div>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <p class="font-semibold text-gray-800 mb-4">3. Where does David have lunch?</p>
+                    <div class="grid gap-3">
+                        <div onclick="checkAnswer(this, false)" class="option-card p-4 rounded-xl">In his office</div>
+                        <div onclick="checkAnswer(this, true)" class="option-card p-4 rounded-xl">At an Italian restaurant</div>
+                        <div onclick="checkAnswer(this, false)" class="option-card p-4 rounded-xl">At his home</div>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <p class="font-semibold text-gray-800 mb-4">4. What does David do immediately after getting home?</p>
+                    <div class="grid gap-3">
+                        <div onclick="checkAnswer(this, false)" class="option-card p-4 rounded-xl">He cooks dinner</div>
+                        <div onclick="checkAnswer(this, true)" class="option-card p-4 rounded-xl">He reads the news on his phone</div>
+                        <div onclick="checkAnswer(this, false)" class="option-card p-4 rounded-xl">He exercises for 30 minutes</div>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <p class="font-semibold text-gray-800 mb-4">5. How many hours does David sleep?</p>
+                    <div class="grid gap-3">
+                        <div onclick="checkAnswer(this, false)" class="option-card p-4 rounded-xl">Under 6 hours</div>
+                        <div onclick="checkAnswer(this, true)" class="option-card p-4 rounded-xl">7 or 8 hours</div>
+                        <div onclick="checkAnswer(this, false)" class="option-card p-4 rounded-xl">Exactly 10 hours</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function checkAnswer(element, isCorrect) {
+            // Obtener todas las opciones de la misma pregunta
+            const parent = element.parentElement;
+            const options = parent.querySelectorAll('.option-card');
+            
+            // Limpiar clases previas de esta pregunta
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+                opt.style.pointerEvents = 'none'; // Desactivar después de responder
+            });
+
+
+
+          // Aplicar clase según resultado
+            if (isCorrect) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('incorrect');
+                // Mostrar la correcta también para ayudar al estudiante
+                // (Opcional: puedes quitar esto si quieres que sigan intentando)
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verb To Be: Interrogative - Page 21</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f0f4f8; }
+        .hero-gradient { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); }
+        .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 2.5rem; border: 1px solid #e2e8f0; }
+        .blank-input { 
+            background-color: #fef08a; padding: 6px 15px; border-radius: 12px; 
+            font-weight: 700; border: 2px solid transparent; width: 150px;
+            outline: none; transition: all 0.3s ease; color: #1e293b; text-align: center;
+        }
+        .blank-input:focus { border-color: #6366f1; background-color: #ffffff; box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); }
+        .input-correct { background-color: #dcfce7 !important; color: #15803d; border-color: #22c55e !important; transform: scale(1.02); }
+        .input-incorrect { background-color: #fee2e2 !important; color: #b91c1c; border-color: #ef4444 !important; }
+        #progress-bar { transition: width 0.5s ease-in-out; }
+    </style>
+</head>
+<body class="pb-20">
+    <div class="fixed top-0 left-0 w-full h-2 bg-gray-200 z-50">
+        <div id="progress-bar" class="h-full bg-indigo-600 w-0"></div>
+    </div>
+
+    <div class="hero-gradient px-8 py-6 text-white flex justify-between items-center shadow-2xl">
+        <a href="menu.html" class="flex items-center space-x-3 group transition">
+            <div class="bg-white/20 p-2 rounded-lg group-hover:bg-white/40">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </div>
+            <span class="font-bold tracking-tight">Back to Menu</span>
+        </a>
+        <div class="flex items-center space-x-4">
+            <div class="text-right">
+                <p class="text-[10px] uppercase opacity-70 font-black tracking-widest">Accuracy</p>
+                <p id="score-text" class="text-lg font-bold">0 / 10</p>
+            </div>
+            <div class="bg-white text-indigo-900 px-4 py-1 rounded-full text-xs font-black uppercase shadow-lg">Question Master</div>
+        </div>
+    </div>
+
+    <main class="max-w-4xl mx-auto px-6 mt-12">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tighter mb-4">Verb <span class="text-indigo-600">To Be</span></h1>
+            <p class="text-slate-500 font-medium">Complete with <b>am, is, are</b> or <b>was, were</b> according to the context.</p>
+        </div>
+
+        <article class="glass-card p-8 md:p-12 mb-10 shadow-xl border-t-8 border-amber-500">
+            <div id="questions-list" class="space-y-8"></div>
+            <div class="mt-12 flex flex-col items-center border-t border-slate-100 pt-10">
+                <button onclick="checkAnswers()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 px-14 rounded-2xl shadow-xl transition-all active:scale-95 uppercase tracking-widest">
+                    Validate Solutions
+                </button>
+                <button onclick="location.reload()" class="mt-6 text-slate-400 hover:text-indigo-600 text-sm font-bold uppercase transition flex items-center">
+                    Try Different Set
+                </button>
+            </div>
+        </article>
+
+        <div id="final-stats" class="hidden p-8 bg-indigo-600 rounded-3xl text-center shadow-2xl animate-bounce">
+            <h2 class="text-3xl font-black text-white">MASTER OF "TO BE" REACHED! 🏆</h2>
+            <p class="text-indigo-100 font-bold uppercase tracking-widest text-sm mt-2">Perfect Score!</p>
+        </div>
+    </main>
+
+    <script>
+        const masterQuestions = [{"text": "I (be)", "answer": "am", "end": "a very good student."}, {"text": "She (be)", "answer": "is", "end": "my sister."}, {"text": "They (be)", "answer": "are", "end": "in the garden."}, {"text": "It (be)", "answer": "is", "end": "a beautiful day."}, {"text": "We (be)", "answer": "are", "end": "friends forever."}, {"text": "He (be)", "answer": "is", "end": "a famous doctor."}, {"text": "You (be)", "answer": "are", "end": "very intelligent."}, {"text": "The cat (be)", "answer": "is", "end": "on the roof."}, {"text": "The apples (be)", "answer": "are", "end": "red and sweet."}, {"text": "I (be)", "answer": "was", "end": "at the cinema yesterday."}, {"text": "She (be)", "answer": "was", "end": "very tired last night."}, {"text": "They (be)", "answer": "were", "end": "at the beach last summer."}, {"text": "We (be)", "answer": "were", "end": "late for the meeting."}, {"text": "It (be)", "answer": "was", "end": "very cold on Monday."}, {"text": "You (be)", "answer": "were", "end": "the best player."}, {"text": "My parents (be)", "answer": "are", "end": "at home now."}, {"text": "The water (be)", "answer": "is", "end": "very cold."}, {"text": "The books (be)", "answer": "were", "end": "on the table."}, {"text": "I (be)", "answer": "am", "end": "ready for the test."}, {"text": "The sky (be)", "answer": "is", "end": "blue today."}, {"text": "The sun (be)", "answer": "is", "end": "very bright."}, {"text": "The clouds (be)", "answer": "are", "end": "white."}, {"text": "The grass (be)", "answer": "is", "end": "green."}, {"text": "The cake (be)", "answer": "was", "end": "delicious."}, {"text": "The park (be)", "answer": "is", "end": "full of people."}, {"text": "The teacher (be)", "answer": "was", "end": "very patient."}, {"text": "My grandparents (be)", "answer": "are", "end": "old."}, {"text": "The stars (be)", "answer": "are", "end": "shining tonight."}, {"text": "The moon (be)", "answer": "was", "end": "full last night."}, {"text": "The river (be)", "answer": "is", "end": "wide."}, {"text": "The mountains (be)", "answer": "are", "end": "covered in snow."}, {"text": "The car (be)", "answer": "was", "end": "very expensive."}, {"text": "The students (be)", "answer": "are", "end": "in the classroom."}, {"text": "My phone (be)", "answer": "is", "end": "on the desk."}, {"text": "The coffee (be)", "answer": "was", "end": "very hot."}, {"text": "We (be)", "answer": "are", "end": "proud of you."}, {"text": "The city (be)", "answer": "is", "end": "very big."}, {"text": "The musicians (be)", "answer": "were", "end": "excellent."}, {"text": "The ocean (be)", "answer": "is", "end": "deep and dark."}, {"text": "I (be)", "answer": "am", "end": "very tall for my age."}, {"text": "The bridge (be)", "answer": "is", "end": "very old."}, {"text": "The forest (be)", "answer": "was", "end": "dark and scary."}, {"text": "The ice (be)", "answer": "is", "end": "very slippery."}, {"text": "The buildings (be)", "answer": "are", "end": "very high."}, {"text": "The lake (be)", "answer": "was", "end": "calm."}, {"text": "I (be)", "answer": "am", "end": "a fan of music."}, {"text": "She (be)", "answer": "was", "end": "a famous actress."}, {"text": "They (be)", "answer": "are", "end": "colleagues."}, {"text": "The journey (be)", "answer": "was", "end": "tiring."}, {"text": "It (be)", "answer": "is", "end": "five o'clock."}, {"text": "The birds (be)", "answer": "are", "end": "in the tree."}, {"text": "The leaves (be)", "answer": "were", "end": "yellow in autumn."}, {"text": "The ring (be)", "answer": "is", "end": "made of gold."}, {"text": "The wall (be)", "answer": "was", "end": "white."}, {"text": "The floor (be)", "answer": "is", "end": "dirty."}, {"text": "The lights (be)", "answer": "were", "end": "off."}, {"text": "The bag (be)", "answer": "is", "end": "heavy."}, {"text": "The story (be)", "answer": "was", "end": "funny."}, {"text": "The test (be)", "answer": "was", "end": "easy."}, {"text": "The mountain (be)", "answer": "is", "end": "very high."}, {"text": "The desert (be)", "answer": "was", "end": "hot."}, {"text": "The colors (be)", "answer": "are", "end": "bright."}, {"text": "The match (be)", "answer": "was", "end": "exciting."}, {"text": "The artist (be)", "answer": "is", "end": "creative."}, {"text": "The clock (be)", "answer": "was", "end": "slow."}, {"text": "The mirror (be)", "answer": "is", "end": "clean."}, {"text": "The chair (be)", "answer": "was", "end": "broken."}, {"text": "The room (be)", "answer": "is", "end": "tidy."}, {"text": "The pillow (be)", "answer": "was", "end": "soft."}, {"text": "The keys (be)", "answer": "are", "end": "on the table."}, {"text": "The cup (be)", "answer": "is", "end": "empty."}, {"text": "The glass (be)", "answer": "was", "end": "full."}, {"text": "The soup (be)", "answer": "is", "end": "hot."}, {"text": "The bread (be)", "answer": "was", "end": "fresh."}, {"text": "The sea (be)", "answer": "is", "end": "blue."}, {"text": "The boat (be)", "answer": "was", "end": "small."}, {"text": "The flag (be)", "answer": "is", "end": "red and white."}, {"text": "The grass (be)", "answer": "was", "end": "wet."}, {"text": "The rain (be)", "answer": "is", "end": "cold."}, {"text": "My bike (be)", "answer": "is", "end": "new."}, {"text": "The computer (be)", "answer": "was", "end": "fast."}, {"text": "The flowers (be)", "answer": "are", "end": "beautiful."}, {"text": "The box (be)", "answer": "was", "end": "heavy."}, {"text": "The milk (be)", "answer": "is", "end": "cold."}, {"text": "The dinner (be)", "answer": "was", "end": "ready."}, {"text": "I (be)", "answer": "am", "end": "happy to see you."}, {"text": "He (be)", "answer": "was", "end": "a great leader."}, {"text": "They (be)", "answer": "were", "end": "very noisy."}, {"text": "The sky (be)", "answer": "was", "end": "orange at sunset."}, {"text": "We (be)", "answer": "are", "end": "in the right place."}, {"text": "The movie (be)", "answer": "was", "end": "very long."}, {"text": "The shoes (be)", "answer": "were", "end": "under the bed."}, {"text": "The soup (be)", "answer": "was", "end": "delicious."}, {"text": "The cat (be)", "answer": "was", "end": "hungry."}, {"text": "The shop (be)", "answer": "is", "end": "open."}, {"text": "The library (be)", "answer": "was", "end": "quiet."}, {"text": "The piano (be)", "answer": "is", "end": "old."}, {"text": "The window (be)", "answer": "was", "end": "broken."}, {"text": "The beach (be)", "answer": "is", "end": "crowded."}, {"text": "The pizza (be)", "answer": "was", "end": "perfect."}, {"text": "I (be)", "answer": "am", "end": "a very good student."}, {"text": "She (be)", "answer": "is", "end": "my sister."}, {"text": "They (be)", "answer": "are", "end": "in the garden."}, {"text": "It (be)", "answer": "is", "end": "a beautiful day."}, {"text": "We (be)", "answer": "are", "end": "friends forever."}, {"text": "He (be)", "answer": "is", "end": "a famous doctor."}, {"text": "You (be)", "answer": "are", "end": "very intelligent."}, {"text": "The cat (be)", "answer": "is", "end": "on the roof."}, {"text": "The apples (be)", "answer": "are", "end": "red and sweet."}, {"text": "I (be)", "answer": "was", "end": "at the cinema yesterday."}, {"text": "She (be)", "answer": "was", "end": "very tired last night."}, {"text": "They (be)", "answer": "were", "end": "at the beach last summer."}, {"text": "We (be)", "answer": "were", "end": "late for the meeting."}, {"text": "It (be)", "answer": "was", "end": "very cold on Monday."}, {"text": "You (be)", "answer": "were", "end": "the best player."}, {"text": "My parents (be)", "answer": "are", "end": "at home now."}, {"text": "The water (be)", "answer": "is", "end": "very cold."}, {"text": "The books (be)", "answer": "were", "end": "on the table."}, {"text": "I (be)", "answer": "am", "end": "ready for the test."}, {"text": "The sky (be)", "answer": "is", "end": "blue today."}, {"text": "(be)", "answer": "Am", "end": "I in the right room?"}, {"text": "(be)", "answer": "Is", "end": "she your mother?"}, {"text": "(be)", "answer": "Are", "end": "they your friends?"}, {"text": "(be)", "answer": "Is", "end": "it your birthday today?"}, {"text": "(be)", "answer": "Are", "end": "we in the list?"}, {"text": "(be)", "answer": "Is", "end": "he a pilot?"}, {"text": "(be)", "answer": "Are", "end": "you busy right now?"}, {"text": "(be)", "answer": "Is", "end": "the dog in the house?"}, {"text": "(be)", "answer": "Are", "end": "the children happy?"}, {"text": "(be)", "answer": "Was", "end": "I at the meeting yesterday?"}, {"text": "(be)", "answer": "Was", "end": "she at the library?"}, {"text": "(be)", "answer": "Were", "end": "they in London last year?"}, {"text": "(be)", "answer": "Was", "end": "it a good movie?"}, {"text": "(be)", "answer": "Were", "end": "we late for the bus?"}, {"text": "(be)", "answer": "Was", "end": "he the winner?"}, {"text": "(be)", "answer": "Were", "end": "you at the wedding?"}, {"text": "(be)", "answer": "Are", "end": "your eyes blue?"}, {"text": "(be)", "answer": "Was", "end": "the pizza delicious?"}, {"text": "(be)", "answer": "Are", "end": "we ready to go?"}, {"text": "(be)", "answer": "Was", "end": "the door locked?"}, {"text": "I (be)", "answer": "am", "end": "very tall for my age."}, {"text": "The mountains (be)", "answer": "are", "end": "covered in snow."}, {"text": "The car (be)", "answer": "was", "end": "very expensive."}, {"text": "The students (be)", "answer": "are", "end": "in the classroom."}, {"text": "My phone (be)", "answer": "is", "end": "on the desk."}, {"text": "The coffee (be)", "answer": "was", "end": "very hot."}, {"text": "We (be)", "answer": "are", "end": "proud of you."}, {"text": "The city (be)", "answer": "is", "end": "very big."}, {"text": "The musicians (be)", "answer": "were", "end": "excellent."}, {"text": "The ocean (be)", "answer": "is", "end": "deep and dark."}, {"text": "(be)", "answer": "Is", "end": "the tea hot?"}, {"text": "(be)", "answer": "Are", "end": "the shops closed?"}, {"text": "(be)", "answer": "Was", "end": "the flight long?"}, {"text": "(be)", "answer": "Were", "end": "the grapes sweet?"}, {"text": "(be)", "answer": "Is", "end": "your name John?"}, {"text": "(be)", "answer": "Are", "end": "the streets clean?"}, {"text": "(be)", "answer": "Was", "end": "the music loud?"}, {"text": "(be)", "answer": "Is", "end": "the sky grey?"}, {"text": "(be)", "answer": "Were", "end": "the lions in the cage?"}, {"text": "(be)", "answer": "Is", "end": "the baby sleeping?"}, {"text": "The sun (be)", "answer": "is", "end": "very bright."}, {"text": "The clouds (be)", "answer": "are", "end": "white."}, {"text": "The grass (be)", "answer": "is", "end": "green."}, {"text": "The cake (be)", "answer": "was", "end": "delicious."}, {"text": "The park (be)", "answer": "is", "end": "full of people."}, {"text": "The teacher (be)", "answer": "was", "end": "very patient."}, {"text": "My grandparents (be)", "answer": "are", "end": "old."}, {"text": "The stars (be)", "answer": "are", "end": "shining tonight."}, {"text": "The moon (be)", "answer": "was", "end": "full last night."}, {"text": "The river (be)", "answer": "is", "end": "wide."}, {"text": "(be)", "answer": "Is", "end": "the box heavy?"}, {"text": "(be)", "answer": "Are", "end": "the glasses clean?"}, {"text": "(be)", "answer": "Was", "end": "the answer correct?"}, {"text": "(be)", "answer": "Were", "end": "the people nice?"}, {"text": "(be)", "answer": "Is", "end": "it time to sleep?"}, {"text": "(be)", "answer": "Are", "end": "you a good dancer?"}, {"text": "(be)", "answer": "Was", "end": "he a tall man?"}, {"text": "(be)", "answer": "Is", "end": "she a quiet person?"}, {"text": "(be)", "answer": "Were", "end": "they at the concert?"}, {"text": "(be)", "answer": "Is", "end": "the fire out?"}, {"text": "The bridge (be)", "answer": "is", "end": "very old."}, {"text": "The forest (be)", "answer": "was", "end": "dark and scary."}, {"text": "The ice (be)", "answer": "is", "end": "very slippery."}, {"text": "The buildings (be)", "answer": "are", "end": "very high."}, {"text": "The lake (be)", "answer": "was", "end": "calm."}, {"text": "I (be)", "answer": "am", "end": "a fan of music."}, {"text": "She (be)", "answer": "was", "end": "a famous actress."}, {"text": "They (be)", "answer": "are", "end": "colleagues."}, {"text": "The journey (be)", "answer": "was", "end": "tiring."}, {"text": "The weather (be)", "answer": "will be", "end": "nice (change to: is)."}, {"text": "It (be)", "answer": "is", "end": "5 o'clock."}, {"text": "The birds (be)", "answer": "are", "end": "in the tree."}, {"text": "The leaves (be)", "answer": "were", "end": "yellow in autumn."}, {"text": "The ring (be)", "answer": "is", "end": "made of gold."}, {"text": "The wall (be)", "answer": "was", "end": "white."}, {"text": "The floor (be)", "answer": "is", "end": "dirty."}, {"text": "The lights (be)", "answer": "were", "end": "off."}, {"text": "The bag (be)", "answer": "is", "end": "heavy."}, {"text": "The story (be)", "answer": "was", "end": "funny."}, {"text": "The test (be)", "answer": "was", "end": "easy."}, {"text": "(be)", "answer": "Are", "end": "the children at school?"}, {"text": "(be)", "answer": "Is", "end": "the water boiling?"}, {"text": "(be)", "answer": "Was", "end": "the train on time?"}, {"text": "(be)", "answer": "Were", "end": "the tickets expensive?"}, {"text": "(be)", "answer": "Is", "end": "the cat in the box?"}, {"text": "(be)", "answer": "Are", "end": "you hungry?"}, {"text": "(be)", "answer": "Was", "end": "she your teacher?"}, {"text": "(be)", "answer": "Is", "end": "he in the garage?"}, {"text": "(be)", "answer": "Were", "end": "they surprised?"}, {"text": "(be)", "answer": "Is", "end": "it a secret?"}, {"text": "The mountain (be)", "answer": "is", "end": "very high."}, {"text": "The desert (be)", "answer": "was", "end": "hot."}, {"text": "The colors (be)", "answer": "are", "end": "bright."}, {"text": "The match (be)", "answer": "was", "end": "exciting."}, {"text": "The artist (be)", "answer": "is", "end": "creative."}, {"text": "The clock (be)", "answer": "was", "end": "slow."}, {"text": "The mirror (be)", "answer": "is", "end": "clean."}, {"text": "The chair (be)", "answer": "was", "end": "broken."}, {"text": "The room (be)", "answer": "is", "end": "tidy."}, {"text": "The pillow (be)", "answer": "was", "end": "soft."}, {"text": "The keys (be)", "answer": "are", "end": "on the table."}, {"text": "The cup (be)", "answer": "is", "end": "empty."}, {"text": "The glass (be)", "answer": "was", "end": "full."}, {"text": "The soup (be)", "answer": "is", "end": "hot."}, {"text": "The bread (be)", "answer": "was", "end": "fresh."}, {"text": "The sea (be)", "answer": "is", "end": "blue."}, {"text": "The boat (be)", "answer": "was", "end": "small."}, {"text": "The flag (be)", "answer": "is", "end": "red and white."}, {"text": "The grass (be)", "answer": "was", "end": "wet."}, {"text": "The rain (be)", "answer": "is", "end": "cold."}, {"text": "(be)", "answer": "Are", "end": "you tired?"}, {"text": "(be)", "answer": "Is", "end": "it true?"}, {"text": "(be)", "answer": "Was", "end": "she here?"}, {"text": "(be)", "answer": "Were", "end": "they late?"}, {"text": "(be)", "answer": "Is", "end": "he a lawyer?"}, {"text": "(be)", "answer": "Are", "end": "we friends?"}, {"text": "(be)", "answer": "Was", "end": "it a mistake?"}, {"text": "(be)", "answer": "Were", "end": "you there?"}, {"text": "(be)", "answer": "Is", "end": "she happy?"}, {"text": "(be)", "answer": "Are", "end": "they home?"}];
+
+        function shuffle(array) { return array.sort(() => Math.random() - 0.5); }
+
+        function initQuiz() {
+            const selected = shuffle([...masterQuestions]).slice(0, 10);
+            const container = document.getElementById('questions-list');
+            selected.forEach((q, index) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = "flex flex-wrap items-center gap-3 text-lg font-semibold text-slate-700 p-4 rounded-2xl hover:bg-slate-50 transition";
+                qDiv.innerHTML = `
+                    <span class="bg-indigo-100 text-indigo-600 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black">${index + 1}</span>
+                    <span>${q.text}</span>
+                    <input type="text" class="blank-input" data-answer="${q.answer}">
+                    <span>${q.end}</span>
+                `;
+                container.appendChild(qDiv);
+            });
+        }
+
+        function checkAnswers() {
+            const inputs = document.querySelectorAll('.blank-input');
+            let correctCount = 0;
+            inputs.forEach(input => {
+                const userVal = input.value.trim().toLowerCase();
+                const correct = input.getAttribute('data-answer').toLowerCase();
+                if (userVal === correct) {
+                    input.classList.add('input-correct');
+                    correctCount++;
+                } else {
+                    input.classList.add('input-incorrect');
+                }
+            });
+            const progress = (correctCount / 10) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+            document.getElementById('score-text').innerText = correctCount + " / 10";
+            if (correctCount === 10) document.getElementById('final-stats').classList.remove('hidden');
+        }
+        initQuiz();
+    </script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Negative Exercise 16: Present Simple</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f0f4f8; }
+        .hero-gradient { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); }
+        .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 2.5rem; border: 1px solid #e2e8f0; }
+        .blank-input { 
+            background-color: #fef08a; padding: 4px 12px; border-radius: 12px; 
+            font-weight: 700; border: 2px solid transparent; width: 160px;
+            outline: none; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #1e293b; text-align: center;
+        }
+        .blank-input:focus { border-color: #6366f1; background-color: #ffffff; box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); }
+        .input-correct { background-color: #dcfce7 !important; color: #15803d; border-color: #22c55e !important; transform: scale(1.02); }
+        .input-incorrect { background-color: #fee2e2 !important; color: #b91c1c; border-color: #ef4444 !important; }
+        #progress-bar { transition: width 0.5s ease-in-out; }
+    </style>
+</head>
+<body class="pb-20">
+    <div class="fixed top-0 left-0 w-full h-2 bg-gray-200 z-50">
+        <div id="progress-bar" class="h-full bg-indigo-600 w-0"></div>
+    </div>
+
+    <div class="hero-gradient px-8 py-6 text-white flex justify-between items-center shadow-2xl">
+        <a href="../menu.html" class="flex items-center space-x-3 group">
+            <div class="bg-white/20 p-2 rounded-lg group-hover:bg-white/40 transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </div>
+            <span class="font-bold tracking-tight text-sm">Back to Menu</span>
+        </a>
+        <div class="flex items-center space-x-4">
+            <div class="text-right">
+                <p class="text-[10px] uppercase opacity-70 font-black tracking-widest">Score</p>
+                <p id="score-text" class="text-lg font-bold">0 / 10</p>
+            </div>
+            <div class="bg-green-400 text-green-900 px-4 py-1 rounded-full text-xs font-black uppercase shadow-lg">Negative Only</div>
+        </div>
+    </div>
+
+    <main class="max-w-4xl mx-auto px-6 mt-12">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tighter mb-4 italic uppercase">PAGE 16</h1>
+            <p class="text-slate-500 font-medium italic">Negative Form Challenge</p>
+        </div>
+
+        <article class="glass-card p-8 md:p-12 mb-10 shadow-xl border-t-8 border-indigo-500">
+            <div id="questions-list" class="space-y-8"></div>
+
+            <div id="bonus-area" class="hidden mt-10 pt-10 border-t-4 border-dashed border-indigo-200">
+                <h3 class="text-center text-indigo-600 font-black mb-6 uppercase tracking-widest italic">★ Bonus Desbloqueado ★</h3>
+                <div id="bonus-list" class="space-y-8"></div>
+            </div>
+
+            <div class="mt-12 flex flex-col items-center border-t border-slate-100 pt-10">
+                <button id="main-btn" onclick="checkAnswers()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 px-14 rounded-2xl shadow-xl transition-all transform hover:-translate-y-1 active:scale-95 uppercase tracking-widest">
+                    Check My Answers
+                </button>
+                <button onclick="location.reload()" class="mt-6 text-slate-400 hover:text-indigo-600 text-sm font-bold uppercase tracking-widest transition flex items-center">
+                    New Phrases Mix
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <script>
+        const mainBank = [{"text": "His sister (not/teach)", "answer": "doesn't teach", "end": "English."}, {"text": "The computer (not/work)", "answer": "doesn't work", "end": "without a battery."}, {"text": "You (not/do)", "answer": "don't do", "end": "the dishes every night."}, {"text": "I (not/want)", "answer": "don't want", "end": "any sugar in my tea."}, {"text": "The window (not/open)", "answer": "doesn't open", "end": "easily."}, {"text": "He (not/smoke)", "answer": "doesn't smoke", "end": "anymore."}, {"text": "The baby (not/cry)", "answer": "doesn't cry", "end": "during the day."}, {"text": "(Do / Does)", "answer": "Do", "end": "your parents travel often?"}, {"text": "She (not/remember)", "answer": "doesn't remember", "end": "my name."}, {"text": "They (not/know)", "answer": "don't know", "end": "how to swim."}];
+        const bonusBank = [{"text": "The sun (not/shine)", "answer": "doesn't shine", "end": "at night."}, {"text": "(Do / Does)", "answer": "Does", "end": "the train arrive on time?"}, {"text": "The teacher (not/forget)", "answer": "doesn't forget", "end": "our homework."}, {"text": "(Do / Does)", "answer": "Does", "end": "the dog bark at night?"}, {"text": "The mechanic (not/fix)", "answer": "doesn't fix", "end": "motorcycles."}];
+
+        function initQuiz() {
+            const container = document.getElementById('questions-list');
+            mainBank.forEach((q, index) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = "flex flex-wrap items-center gap-3 text-lg font-semibold text-slate-700 p-4 rounded-2xl hover:bg-slate-50 transition";
+                qDiv.innerHTML = `
+                    <span class="bg-indigo-100 text-indigo-600 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black">${index + 1}</span>
+                    <span>${q.text}</span>
+                    <input type="text" class="blank-input main-q" data-answer="${q.answer}" oninput="this.classList.remove('input-correct', 'input-incorrect')">
+                    <span>${q.end}</span>
+                `;
+                container.appendChild(qDiv);
+            });
+        }
+
+        function checkAnswers() {
+            const inputs = document.querySelectorAll('.main-q');
+            let correctCount = 0;
+            inputs.forEach(input => {
+                if (input.value.trim().toLowerCase() === input.getAttribute('data-answer').toLowerCase()) {
+                    input.classList.add('input-correct');
+                    correctCount++;
+                } else { input.classList.add('input-incorrect'); }
+            });
+            document.getElementById('score-text').innerText = `${correctCount} / 10`;
+            document.getElementById('progress-bar').style.width = (correctCount / 10) * 100 + '%';
+
+            if (correctCount === 10) {
+                document.getElementById('bonus-area').classList.remove('hidden');
+                loadBonus();
+                document.getElementById('main-btn').innerText = "Verify Final Bonus";
+                document.getElementById('main-btn').onclick = checkFinalBonus;
+            }
+        }
+
+        function loadBonus() {
+            const container = document.getElementById('bonus-list');
+            container.innerHTML = "";
+            bonusBank.forEach((q) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = "flex flex-wrap items-center gap-3 text-lg font-semibold text-slate-700 p-4 rounded-2xl bg-indigo-50/50";
+                qDiv.innerHTML = `
+                    <span class="bg-indigo-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black">★</span>
+                    <span>${q.text}</span>
+                    <input type="text" class="blank-input bonus-q" data-answer="${q.answer}">
+                    <span>${q.end}</span>
+                `;
+                container.appendChild(qDiv);
+            });
+        }
+
+        function checkFinalBonus() {
+            const bonusInputs = document.querySelectorAll('.bonus-q');
+            let bonusCorrect = 0;
+            bonusInputs.forEach(input => {
+                if (input.value.trim().toLowerCase() === input.getAttribute('data-answer').toLowerCase()) {
+                    input.classList.add('input-correct');
+                    bonusCorrect++;
+                } else { input.classList.add('input-incorrect'); }
+            });
+            if (bonusCorrect === 5) { alert("🌟 PERFECT SCORE ON PAGE 16! 🌟"); }
+        }
+        initQuiz();
+    </script>
+</body>
+</html>
